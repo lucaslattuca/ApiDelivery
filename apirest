@@ -1,0 +1,331 @@
+/*
+SQLyog Ultimate v12.4.3 (64 bit)
+MySQL - 10.1.26-MariaDB : Database - apirest
+*********************************************************************
+*/
+
+/*!40101 SET NAMES utf8 */;
+
+/*!40101 SET SQL_MODE=''*/;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`apirest` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
+
+USE `apirest`;
+
+/*Table structure for table `apirest_art_manufacturado` */
+
+DROP TABLE IF EXISTS `apirest_art_manufacturado`;
+
+CREATE TABLE `apirest_art_manufacturado` (
+  `articulo_manuf_id` int(11) NOT NULL AUTO_INCREMENT,
+  `articulo_manuf_detalle` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `articulo_manuf_en_menu` bit(1) DEFAULT NULL,
+  `manuf_foto` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `articulo_manuf_minutos` int(11) DEFAULT NULL,
+  `articulo_manuf_nombre` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `articulo_manuf_precio` float DEFAULT NULL,
+  `id_categoria` int(11) DEFAULT NULL,
+  PRIMARY KEY (`articulo_manuf_id`),
+  KEY `FKf2nfxjokm2lt9ikckpo87u3i1` (`id_categoria`),
+  CONSTRAINT `FKf2nfxjokm2lt9ikckpo87u3i1` FOREIGN KEY (`id_categoria`) REFERENCES `apirest_categoria_producto` (`categoria_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `apirest_art_manufacturado` */
+
+insert  into `apirest_art_manufacturado`(`articulo_manuf_id`,`articulo_manuf_detalle`,`articulo_manuf_en_menu`,`manuf_foto`,`articulo_manuf_minutos`,`articulo_manuf_nombre`,`articulo_manuf_precio`,`id_categoria`) values 
+(1,'tiene queso y hongos','','../../../../assets/pizza-champinone.png',35,'Pizza de Champiñones',175,1),
+(2,'tiene queso y peperoni','','../../../../assets/pizza-peperoni.jpg',20,'pizza Peperoni',150,1),
+(3,'carne','','../../../../assets/empanadas-carne.jpg',30,'empanadas carne',130,2),
+(4,'2 medallones, queso, tomate y panceta','','../../../../assets/hamburguesa-bacon.png',34,'hamburguesa Bacon Doble',200,3);
+
+/*Table structure for table `apirest_articulos` */
+
+DROP TABLE IF EXISTS `apirest_articulos`;
+
+CREATE TABLE `apirest_articulos` (
+  `articulo_id` int(11) NOT NULL AUTO_INCREMENT,
+  `articulo_costo` float DEFAULT NULL,
+  `articulo_detalle` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `en_lista` bit(1) DEFAULT NULL,
+  `articulo_es_prima` bit(1) DEFAULT NULL,
+  `articulo_foto` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `articulo_nombre` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `articulo_precio` float DEFAULT NULL,
+  `articulo_stock` double DEFAULT NULL,
+  `stock_minimo` double DEFAULT NULL,
+  `id_categoria` int(11) DEFAULT NULL,
+  `id_medida` int(11) DEFAULT NULL,
+  PRIMARY KEY (`articulo_id`),
+  KEY `FKr8lsqkqx6xe0l27s2abytadrp` (`id_categoria`),
+  KEY `FK87hvjybf4juh5u0o90dsycnhc` (`id_medida`),
+  CONSTRAINT `FK87hvjybf4juh5u0o90dsycnhc` FOREIGN KEY (`id_medida`) REFERENCES `apirest_unidad_medida` (`tipo_medida_id`),
+  CONSTRAINT `FKr8lsqkqx6xe0l27s2abytadrp` FOREIGN KEY (`id_categoria`) REFERENCES `apirest_categoria_producto` (`categoria_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `apirest_articulos` */
+
+insert  into `apirest_articulos`(`articulo_id`,`articulo_costo`,`articulo_detalle`,`en_lista`,`articulo_es_prima`,`articulo_foto`,`articulo_nombre`,`articulo_precio`,`articulo_stock`,`stock_minimo`,`id_categoria`,`id_medida`) values 
+(1,20,'azucar','','','nop','azucar',25,12,5,5,1),
+(2,10,'pimienta','','','mo','pimienta',12,20,10,5,1),
+(3,40,'gaseosa','','\0','../../../../assets/coca-cola.jpg','Coca-Cola',100,50,45,4,2);
+
+/*Table structure for table `apirest_cargos` */
+
+DROP TABLE IF EXISTS `apirest_cargos`;
+
+CREATE TABLE `apirest_cargos` (
+  `cargo_id` int(11) NOT NULL AUTO_INCREMENT,
+  `cargo_puesto` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`cargo_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `apirest_cargos` */
+
+/*Table structure for table `apirest_categoria_producto` */
+
+DROP TABLE IF EXISTS `apirest_categoria_producto`;
+
+CREATE TABLE `apirest_categoria_producto` (
+  `categoria_id` int(11) NOT NULL AUTO_INCREMENT,
+  `categoria_es_plato` bit(1) DEFAULT NULL,
+  `categoria_nombre` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`categoria_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `apirest_categoria_producto` */
+
+insert  into `apirest_categoria_producto`(`categoria_id`,`categoria_es_plato`,`categoria_nombre`) values 
+(1,'','pizzas'),
+(2,'','empanadas'),
+(3,'','hamburguesas'),
+(4,'','bebidas'),
+(5,'\0','cocina');
+
+/*Table structure for table `apirest_cliente` */
+
+DROP TABLE IF EXISTS `apirest_cliente`;
+
+CREATE TABLE `apirest_cliente` (
+  `id_usuario` int(11) NOT NULL AUTO_INCREMENT,
+  `persona_alta` datetime DEFAULT NULL,
+  `persona_baja` datetime DEFAULT NULL,
+  `persona_dni` int(11) DEFAULT NULL,
+  `persona_email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `persona_nombre` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `persona_password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `persona_telefono` int(11) DEFAULT NULL,
+  `nombre_usuario` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id_domicilio` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_usuario`),
+  UNIQUE KEY `UK_5ekwfu729ydr2blwkhsmrqg1f` (`nombre_usuario`),
+  KEY `FKkybj7do6r04b8eaf4wus8jqby` (`id_domicilio`),
+  CONSTRAINT `FKkybj7do6r04b8eaf4wus8jqby` FOREIGN KEY (`id_domicilio`) REFERENCES `apirest_domicilio` (`id_domicilio`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `apirest_cliente` */
+
+insert  into `apirest_cliente`(`id_usuario`,`persona_alta`,`persona_baja`,`persona_dni`,`persona_email`,`persona_nombre`,`persona_password`,`persona_telefono`,`nombre_usuario`,`id_domicilio`) values 
+(1,'2019-06-20 13:14:37',NULL,123456,'juan@gmail.com','juan','aaass11',987456,'jj',1),
+(2,'2019-06-03 13:14:40',NULL,44,'aa','pedro','qwe',452,'aa',1),
+(3,'2019-05-01 13:14:44',NULL,33,'bb','maria','qwer',147,'bb',1),
+(4,'2019-05-14 13:14:48',NULL,88,'vc','marcos','ertt',1597,'cc',1);
+
+/*Table structure for table `apirest_detalle_receta` */
+
+DROP TABLE IF EXISTS `apirest_detalle_receta`;
+
+CREATE TABLE `apirest_detalle_receta` (
+  `receta_id` int(11) NOT NULL AUTO_INCREMENT,
+  `receta_cantidad` float DEFAULT NULL,
+  `receta_fecha_anulado` date DEFAULT NULL,
+  `id_articulo` int(11) DEFAULT NULL,
+  `id_art_manuf` int(11) DEFAULT NULL,
+  PRIMARY KEY (`receta_id`),
+  KEY `FKn8uy6ule7b88pi1k3okw9c83h` (`id_articulo`),
+  KEY `FKlfg5pcbmpsff4akeqs11cu7tk` (`id_art_manuf`),
+  CONSTRAINT `FKlfg5pcbmpsff4akeqs11cu7tk` FOREIGN KEY (`id_art_manuf`) REFERENCES `apirest_art_manufacturado` (`articulo_manuf_id`),
+  CONSTRAINT `FKn8uy6ule7b88pi1k3okw9c83h` FOREIGN KEY (`id_articulo`) REFERENCES `apirest_articulos` (`articulo_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `apirest_detalle_receta` */
+
+/*Table structure for table `apirest_detalles_factura` */
+
+DROP TABLE IF EXISTS `apirest_detalles_factura`;
+
+CREATE TABLE `apirest_detalles_factura` (
+  `detallef_id` int(11) NOT NULL AUTO_INCREMENT,
+  `detalle_fac_cantidad` int(11) DEFAULT NULL,
+  `detalle_anulado` date DEFAULT NULL,
+  `detalle_fac_subtotal` float DEFAULT NULL,
+  `id_articulo` int(11) DEFAULT NULL,
+  `id_art_manuf` int(11) DEFAULT NULL,
+  `num_pedido` int(11) DEFAULT NULL,
+  PRIMARY KEY (`detallef_id`),
+  KEY `FK3k46gogm4dvjn8c2q84famd5m` (`id_articulo`),
+  KEY `FKe9tkprt4bmc0re35vc26elogk` (`id_art_manuf`),
+  KEY `FKohiyem6vdqj3nst6aiph62g3c` (`num_pedido`),
+  CONSTRAINT `FK3k46gogm4dvjn8c2q84famd5m` FOREIGN KEY (`id_articulo`) REFERENCES `apirest_articulos` (`articulo_id`),
+  CONSTRAINT `FKe9tkprt4bmc0re35vc26elogk` FOREIGN KEY (`id_art_manuf`) REFERENCES `apirest_art_manufacturado` (`articulo_manuf_id`),
+  CONSTRAINT `FKohiyem6vdqj3nst6aiph62g3c` FOREIGN KEY (`num_pedido`) REFERENCES `apirest_pedido` (`pedido_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `apirest_detalles_factura` */
+
+insert  into `apirest_detalles_factura`(`detallef_id`,`detalle_fac_cantidad`,`detalle_anulado`,`detalle_fac_subtotal`,`id_articulo`,`id_art_manuf`,`num_pedido`) values 
+(1,1,NULL,120,NULL,1,1),
+(2,1,NULL,150,NULL,2,1),
+(3,1,NULL,130,NULL,3,2),
+(4,2,NULL,200,NULL,4,3);
+
+/*Table structure for table `apirest_distrito` */
+
+DROP TABLE IF EXISTS `apirest_distrito`;
+
+CREATE TABLE `apirest_distrito` (
+  `distrito_id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre_distrito` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id_localidad` int(11) DEFAULT NULL,
+  PRIMARY KEY (`distrito_id`),
+  KEY `FKgxoy814uk79p3dy4p7kh3r6kn` (`id_localidad`),
+  CONSTRAINT `FKgxoy814uk79p3dy4p7kh3r6kn` FOREIGN KEY (`id_localidad`) REFERENCES `apirest_localidad` (`localidad_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `apirest_distrito` */
+
+insert  into `apirest_distrito`(`distrito_id`,`nombre_distrito`,`id_localidad`) values 
+(1,'4ta Seccion',1);
+
+/*Table structure for table `apirest_domicilio` */
+
+DROP TABLE IF EXISTS `apirest_domicilio`;
+
+CREATE TABLE `apirest_domicilio` (
+  `id_domicilio` int(11) NOT NULL AUTO_INCREMENT,
+  `calle` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `numero_casa` int(11) DEFAULT NULL,
+  `numero_departamento` int(11) DEFAULT NULL,
+  `numero_piso` int(11) DEFAULT NULL,
+  `id_distrito` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_domicilio`),
+  KEY `FKbhhpd0atnv2o0et9sq8g9x47q` (`id_distrito`),
+  CONSTRAINT `FKbhhpd0atnv2o0et9sq8g9x47q` FOREIGN KEY (`id_distrito`) REFERENCES `apirest_distrito` (`distrito_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `apirest_domicilio` */
+
+insert  into `apirest_domicilio`(`id_domicilio`,`calle`,`numero_casa`,`numero_departamento`,`numero_piso`,`id_distrito`) values 
+(1,'11',14,4,7,1);
+
+/*Table structure for table `apirest_empleado` */
+
+DROP TABLE IF EXISTS `apirest_empleado`;
+
+CREATE TABLE `apirest_empleado` (
+  `empleado_id` int(11) NOT NULL AUTO_INCREMENT,
+  `persona_alta` datetime DEFAULT NULL,
+  `persona_baja` datetime DEFAULT NULL,
+  `persona_dni` int(11) DEFAULT NULL,
+  `persona_email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `persona_nombre` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `persona_password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `persona_telefono` int(11) DEFAULT NULL,
+  `empleado_cod_ingreso` int(11) DEFAULT NULL,
+  `empleado_cuil` int(11) DEFAULT NULL,
+  `id_domicilio` int(11) DEFAULT NULL,
+  `id_cargo` int(11) DEFAULT NULL,
+  PRIMARY KEY (`empleado_id`),
+  KEY `FK7937tvh7olvidxle51uu49f1m` (`id_domicilio`),
+  KEY `FKqobqyg4be2dthhth1xc9w9ua9` (`id_cargo`),
+  CONSTRAINT `FK7937tvh7olvidxle51uu49f1m` FOREIGN KEY (`id_domicilio`) REFERENCES `apirest_domicilio` (`id_domicilio`),
+  CONSTRAINT `FKqobqyg4be2dthhth1xc9w9ua9` FOREIGN KEY (`id_cargo`) REFERENCES `apirest_cargos` (`cargo_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `apirest_empleado` */
+
+/*Table structure for table `apirest_factura` */
+
+DROP TABLE IF EXISTS `apirest_factura`;
+
+CREATE TABLE `apirest_factura` (
+  `factura_id` int(11) NOT NULL AUTO_INCREMENT,
+  `comprobante_fecha` datetime DEFAULT NULL,
+  `comprobante_fecha_anulado` datetime DEFAULT NULL,
+  `comprobante_hora` time DEFAULT NULL,
+  `factura_es_efectivo` bit(1) DEFAULT NULL,
+  `factura_total` float DEFAULT NULL,
+  `num_pedido` int(11) DEFAULT NULL,
+  PRIMARY KEY (`factura_id`),
+  KEY `FK16mw9vgsn6wmew76qphb1126e` (`num_pedido`),
+  CONSTRAINT `FK16mw9vgsn6wmew76qphb1126e` FOREIGN KEY (`num_pedido`) REFERENCES `apirest_pedido` (`pedido_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `apirest_factura` */
+
+/*Table structure for table `apirest_localidad` */
+
+DROP TABLE IF EXISTS `apirest_localidad`;
+
+CREATE TABLE `apirest_localidad` (
+  `localidad_id` int(11) NOT NULL AUTO_INCREMENT,
+  `localidad_nombre` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`localidad_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `apirest_localidad` */
+
+insert  into `apirest_localidad`(`localidad_id`,`localidad_nombre`) values 
+(1,'Ciudad');
+
+/*Table structure for table `apirest_pedido` */
+
+DROP TABLE IF EXISTS `apirest_pedido`;
+
+CREATE TABLE `apirest_pedido` (
+  `pedido_id` int(11) NOT NULL AUTO_INCREMENT,
+  `comprobante_fecha` datetime DEFAULT NULL,
+  `comprobante_fecha_anulado` datetime DEFAULT NULL,
+  `comprobante_hora` time DEFAULT NULL,
+  `pedido_estado_listo` bit(1) DEFAULT NULL,
+  `pedido_nombre_temporal` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `pedido_observaciones` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `pedido_total` float DEFAULT NULL,
+  `id_comprador` int(11) DEFAULT NULL,
+  `pedido_demora` float DEFAULT NULL,
+  PRIMARY KEY (`pedido_id`),
+  KEY `FKoda15xe69esvruifgivhcanho` (`id_comprador`),
+  CONSTRAINT `FKoda15xe69esvruifgivhcanho` FOREIGN KEY (`id_comprador`) REFERENCES `apirest_cliente` (`id_usuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `apirest_pedido` */
+
+insert  into `apirest_pedido`(`pedido_id`,`comprobante_fecha`,`comprobante_fecha_anulado`,`comprobante_hora`,`pedido_estado_listo`,`pedido_nombre_temporal`,`pedido_observaciones`,`pedido_total`,`id_comprador`,`pedido_demora`) values 
+(1,'2019-06-17 14:57:33',NULL,NULL,'',NULL,'campo nulo ',800,1,0),
+(2,'2019-06-10 10:57:39',NULL,NULL,'\0',NULL,'nada',400,2,0),
+(3,'2019-06-10 11:00:42',NULL,NULL,'\0',NULL,'nada',200,3,0),
+(4,'2019-06-05 18:30:47',NULL,NULL,'\0',NULL,'nada',500,4,0);
+
+/*Table structure for table `apirest_unidad_medida` */
+
+DROP TABLE IF EXISTS `apirest_unidad_medida`;
+
+CREATE TABLE `apirest_unidad_medida` (
+  `tipo_medida_id` int(11) NOT NULL AUTO_INCREMENT,
+  `unidad_medida_tipo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`tipo_medida_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `apirest_unidad_medida` */
+
+insert  into `apirest_unidad_medida`(`tipo_medida_id`,`unidad_medida_tipo`) values 
+(1,'Kg'),
+(2,'Lt');
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
