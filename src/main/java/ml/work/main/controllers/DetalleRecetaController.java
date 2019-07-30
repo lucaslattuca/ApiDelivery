@@ -1,8 +1,11 @@
 package ml.work.main.controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,7 +23,7 @@ import ml.work.main.service.DetalleRecetaService;
 @Controller
 @RestController
 @CrossOrigin(origins = "*") 
-@RequestMapping(path = "api/v1/recetas")
+@RequestMapping(path = "/api/v1/recetas")
 public class DetalleRecetaController implements ObjectController<DetalleRecetaDTO>{
 
 	private DetalleRecetaService detalleRecetaService;
@@ -31,19 +34,25 @@ public class DetalleRecetaController implements ObjectController<DetalleRecetaDT
 	
 	@Override
 	@CrossOrigin("*")
-	@GetMapping(path = "/")
-	public ArrayList<DetalleRecetaDTO> getAll() {
-		return ResponseEntity.status(200).body(detalleRecetaService.getAll()).getBody();
+	@GetMapping(path = "/lista")
+	//@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<List<DetalleRecetaDTO>> getAll(){
+        List<DetalleRecetaDTO> lista = detalleRecetaService.getAll();
+        return new ResponseEntity<List<DetalleRecetaDTO>>(lista, HttpStatus.OK);
+    }
+	
+	@Override
+	@CrossOrigin("*")
+	@GetMapping("/detalle/{id}")
+	//@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<DetalleRecetaDTO> getOne(@PathVariable int id){
+	     DetalleRecetaDTO uno = detalleRecetaService.getOne(id);
+	    return new ResponseEntity<DetalleRecetaDTO>(uno, HttpStatus.OK);
 	}
 
 	@Override
-	@GetMapping(path = "/{id}")
-	public DetalleRecetaDTO getOne(@PathVariable int id) {
-		return ResponseEntity.status(200).body(detalleRecetaService.getOne(id)).getBody();
-	}
-
-	@Override
-	@PostMapping("/")
+	@PostMapping("nuevo")
+	//@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity save(@RequestBody DetalleRecetaDTO body) {
 		DetalleRecetaDTO temp = detalleRecetaService.save(body);
 
@@ -55,14 +64,16 @@ public class DetalleRecetaController implements ObjectController<DetalleRecetaDT
 	}
 
 	@Override
-	@PutMapping("/{id}")
-	public ResponseEntity updateEntity(@RequestBody DetalleRecetaDTO t, @PathVariable int id) {
+	@PutMapping("/actualizar/{id}")
+	//@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity update(@RequestBody DetalleRecetaDTO t, @PathVariable int id) {
 		return ResponseEntity.status(201).body(detalleRecetaService.update(t, id));
 	}
 	
 	@Override
-	@DeleteMapping("/{id}")
-	public ResponseEntity deleteEntity(@PathVariable int id) {
+	@DeleteMapping("/borrar/{id}")
+	//@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity delete(@PathVariable int id) {
 		boolean det = detalleRecetaService.delete(id);
 
 		if (det) {
@@ -70,6 +81,11 @@ public class DetalleRecetaController implements ObjectController<DetalleRecetaDT
 		} else {
 			return ResponseEntity.status(400).body("'Message' . 'Unsuccessful delete'");
 		}
+	}
+	
+	@GetMapping(path = "/porManufacturado/{id}")
+	public ArrayList<DetalleRecetaDTO> getPorIdManufacturado(@PathVariable int id) {
+		return ResponseEntity.status(200).body(detalleRecetaService.getPorIdManufacturado(id)).getBody();
 	}
 
 }

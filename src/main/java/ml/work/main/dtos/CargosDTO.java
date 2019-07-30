@@ -6,11 +6,8 @@ import java.util.List;
 import ml.work.main.entities.Empleado;
 
 public class CargosDTO implements Serializable{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
+	//private static final long serialVersionUID = -7992375307670409913L;
 
 	private int id_cargo;
 	

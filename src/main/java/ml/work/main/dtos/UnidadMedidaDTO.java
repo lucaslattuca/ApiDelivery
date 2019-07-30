@@ -3,11 +3,9 @@ package ml.work.main.dtos;
 import java.io.Serializable;
 
 public class UnidadMedidaDTO implements Serializable{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
+	//private static final long serialVersionUID = -223038641404236778L;
+
 	private int id_medida;	
 	private String tipo_medida;
 	

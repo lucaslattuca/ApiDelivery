@@ -1,7 +1,6 @@
 package ml.work.main.entities;
 
 import java.util.Date;
-import java.time.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,14 +14,15 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "apirest_pedido")
 public class Pedido extends Comprobantes{
-	
-	
 
 	@Id
 	@Column(name = "pedido_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int numPedido;
-
+ 
+	@Column(name= "pedido_con_envio")
+	private boolean con_envio;
+	
 	@Column(name = "pedido_total")
 	private float total;
 	
@@ -40,19 +40,17 @@ public class Pedido extends Comprobantes{
 	
 	@ManyToOne
 	@JoinColumn(name = "id_comprador")	
-	private Cliente cliente;
-	
-	
-	
-	
-	
+	private Usuario cliente;
+
 	public Pedido() {
 		super();		
 	}
 
-	public Pedido(Date fecha, LocalTime hora, Factura factura, String observaciones, String nombreTemporal,
-			int numPedido, float total, Cliente cliente, Date fechaAnulado, boolean estadoListo, float demora) {
-		super(fecha, hora, fechaAnulado);
+	public Pedido(Date fecha, 
+			boolean con_envio,
+			String observaciones, String nombreTemporal,
+			int numPedido, float total, Usuario cliente, Date fechaAnulado, boolean estadoListo, float demora) {
+		super(fecha, fechaAnulado);
 		this.numPedido = numPedido;
 		this.total = total;
 		this.cliente = cliente;		
@@ -60,6 +58,7 @@ public class Pedido extends Comprobantes{
 		this.nombreTemporal = nombreTemporal;
 		this.estadoListo = estadoListo;
 		this.demora = demora;
+		this.con_envio = con_envio;
 	}
 
 	public int getNumPedido() {
@@ -68,6 +67,14 @@ public class Pedido extends Comprobantes{
 
 	public void setNumPedido(int numPedido) {
 		this.numPedido = numPedido;
+	}
+
+	public boolean isCon_envio() {
+		return con_envio;
+	}
+
+	public void setCon_envio(boolean con_envio) {
+		this.con_envio = con_envio;
 	}
 
 	public float getTotal() {
@@ -86,11 +93,11 @@ public class Pedido extends Comprobantes{
 		this.observaciones = observaciones;
 	}
 
-	public Cliente getCliente() {
+	public Usuario getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(Cliente cliente) {
+	public void setCliente(Usuario cliente) {
 		this.cliente = cliente;
 	}
 

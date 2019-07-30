@@ -2,7 +2,6 @@ package ml.work.main.entities;
 
 
 import java.util.Date; 
-import java.time.*;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -12,9 +11,6 @@ public abstract class Comprobantes{
 
 	@Column(name ="comprobante_fecha")
 	protected Date fecha;
-	
-	@Column(name="comprobante_hora")
-	protected LocalTime hora;	
 		
 	@Column(name = "comprobante_fechaAnulado")
 	protected Date fechaAnulado;
@@ -24,10 +20,9 @@ public abstract class Comprobantes{
 	public Comprobantes() {}
 
 
-	public Comprobantes(Date fecha, LocalTime hora, Date fechaAnulado) {
+	public Comprobantes(Date fecha, Date fechaAnulado) {
 		
 		this.fecha = fecha;
-		this.hora = hora;
 		this.fechaAnulado = fechaAnulado;
 	}
 
@@ -38,14 +33,6 @@ public abstract class Comprobantes{
 
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
-	}
-
-	public LocalTime getHora() {
-		return hora;
-	}
-
-	public void setHora(LocalTime hora) {
-		this.hora = hora;
 	}	
 
 	public Date getFechaAnulado() {

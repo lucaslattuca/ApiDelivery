@@ -1,34 +1,28 @@
 package ml.work.main.entities;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+//import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+//import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import net.bytebuddy.asm.Advice.This;
 
 @Entity
 @Table(name = "apirest_cliente")
-@JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="@id")
+//@JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="@id")
 public class Cliente extends Persona {
-	//@Id
-	//@Column(name="id_usuario")
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
-	//private int id_usuario;
-	@EmbeddedId
-	private GenerarId generarId;
-	
-	@Column(name="nombre_usuario", unique = true)
-	private String nombre_usuario;
+	@Id
+	@Column(name="id_cliente")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long idCliente;
+	//@EmbeddedId
+	//private GenerarId generarId;
 	
 //	@OneToMany(mappedBy = "cliente", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 //	@JsonManagedReference
@@ -44,33 +38,25 @@ public class Cliente extends Persona {
 		super();
 	}	
 	
-	public Cliente(GenerarId  generarId,String nombre_persona, int dni, String password, int telefono, String email, 
+	public Cliente(String nombre, Long dni, String password, Long telefono, String email, 
 			//Domicilio direccion, 
-			String nombre_usuario, 
+			String nombreUsuario, 
 			//List<Factura> facturas, 
 			Date alta, Date baja) {
-		super(nombre_persona, dni, password, telefono, email, alta, baja);
-		this.nombre_usuario = nombre_usuario;
-		this.generarId = generarId;
+		super(nombre, nombreUsuario, dni, password, telefono, email, baja, alta);
+		//this.generarId = generarId;
 		//this.facturas = facturas;
 		//this.direccion = direccion;
 	}
 	
-	public String getNombre_usuario() {
-		return nombre_usuario;
+
+	public Long getIdCliente() {
+		return idCliente;
 	}
 
-	public void setNombre_usuario(String nombre_usuario) {
-		this.nombre_usuario = nombre_usuario;
+	public void setIdCliente(Long idCliente) {
+		this.idCliente = idCliente;
 	}
-
-	/*public int getId_usuario() {
-		return id_usuario;
-	}
-
-	public void setId_usuario(int id_usuario) {
-		this.id_usuario = id_usuario;
-	}*/
 
 //	public List<Factura> getFacturas() {
 //		return facturas;
@@ -81,25 +67,25 @@ public class Cliente extends Persona {
 //	}
 
 	@Override
-	public String getNombre_persona() {
+	public String getNombrePersona() {
 		// TODO Auto-generated method stub
-		return super.getNombre_persona();
+		return super.getNombrePersona();
 	}
 
 	@Override
-	public void setNombre_persona(String nombre_persona) {
+	public void setNombre(String nombreCliente) {
 		// TODO Auto-generated method stub
-		super.setNombre_persona(nombre_persona);
+		super.setNombre(nombreCliente);
 	}
 
 	@Override
-	public int getDni() {
+	public Long getDni() {
 		// TODO Auto-generated method stub
 		return super.getDni();
 	}
 
 	@Override
-	public void setDni(int dni) {
+	public void setDni(Long dni) {
 		// TODO Auto-generated method stub
 		super.setDni(dni);
 	}
@@ -117,13 +103,13 @@ public class Cliente extends Persona {
 	}
 
 	@Override
-	public int getTelefono() {
+	public Long getTelefono() {
 		// TODO Auto-generated method stub
 		return super.getTelefono();
 	}
 
 	@Override
-	public void setTelefono(int telefono) {
+	public void setTelefono(Long telefono) {
 		// TODO Auto-generated method stub
 		super.setTelefono(telefono);
 	}

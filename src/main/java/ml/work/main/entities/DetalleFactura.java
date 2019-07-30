@@ -1,12 +1,12 @@
 package ml.work.main.entities;
 
-import java.sql.Date;
 
-import javax.persistence.CascadeType;
+
+import java.util.Date;
+
 import javax.persistence.Column;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,13 +14,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+//import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+//import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name="apirest_detalles_factura")
-@JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="@id")
+//@JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="@id")
 public class DetalleFactura {
 	
 	@Id
@@ -36,18 +35,11 @@ public class DetalleFactura {
 	
 	@Column(name="detalleAnulado")
 	private Date fechaAnulado;
-	
-	
-	
-	
-	
+
 	@ManyToOne
 	@JoinColumn(name = "numPedido")	
 	private Pedido pedido;
-	
-	
-	
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_articulo")
 	private Articulo item;
@@ -56,15 +48,10 @@ public class DetalleFactura {
 	@JoinColumn(name = "id_artManuf")
 	private ArticuloManufacturado manufacturado;
 	
-	
-	
-	
-	
+
 	public DetalleFactura() {
 		
 	}	
-	
-	
 
 	public DetalleFactura(int idDetalle, int cantidad, float subtotal, Pedido pedido, 
 //			Comanda comanda, Factura factura, 
@@ -79,8 +66,6 @@ public class DetalleFactura {
 		this.manufacturado = manufacturado;
 		this.fechaAnulado = fechaAnulado;
 	}
-
-
 
 	public int getIdDetalle() {
 		return idDetalle;
@@ -131,24 +116,9 @@ public class DetalleFactura {
 		this.manufacturado = manufacturado;
 	}
 
-
-
-//	public Comanda getComanda() {
-//		return comanda;
-//	}
-//
-//
-//
-//	public void setComanda(Comanda comanda) {
-//		this.comanda = comanda;
-//	}
-
-
-
 	public Date getFechaAnulado() {
 		return fechaAnulado;
 	}
-	
 
 	public void setFechaAnulado(Date fechaAnulado) {
 		this.fechaAnulado = fechaAnulado;

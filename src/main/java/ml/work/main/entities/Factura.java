@@ -41,7 +41,7 @@ public class Factura extends Comprobantes {
 
 	public Factura(Date fecha, LocalTime hora,int numFactura, boolean esEfectivo,
 			Pedido pedidoConfirmado, float total, Date fechaAnulado) {
-		super(fecha, hora, fechaAnulado);
+		super(fecha, fechaAnulado);
 		this.numFactura = numFactura;
 		this.esEfectivo = esEfectivo;		
 		this.total = total;

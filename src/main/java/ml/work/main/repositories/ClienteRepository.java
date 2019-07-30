@@ -7,4 +7,6 @@ import ml.work.main.entities.Cliente;
 @Repository
 public interface ClienteRepository  extends JpaRepository<Cliente, Integer>{
 
+	
+	
 }

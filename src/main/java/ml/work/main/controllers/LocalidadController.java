@@ -1,6 +1,8 @@
 package ml.work.main.controllers;
 
 import java.util.List;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,7 +21,7 @@ import ml.work.main.service.LocalidadService;
 @Controller
 @RestController
 @CrossOrigin(origins = "*") 
-@RequestMapping(path = "api/v1/localidades")
+@RequestMapping(path = "/api/v1/localidades")
 public class LocalidadController implements ObjectController<LocalidadDTO>{
 
 	private LocalidadService localidadService;
@@ -30,19 +32,21 @@ public class LocalidadController implements ObjectController<LocalidadDTO>{
 
 	@Override
 	@CrossOrigin("*")
-	@GetMapping(path ="/")
-	public List<LocalidadDTO> getAll() {		
-		return ResponseEntity.status(200).body(localidadService.getAll()).getBody();
+	@GetMapping(path ="/lista")
+	public ResponseEntity<List<LocalidadDTO>> getAll(){
+        List<LocalidadDTO> lista = localidadService.getAll();
+        return new ResponseEntity<List<LocalidadDTO>>(lista, HttpStatus.OK);
+    }
+
+	@Override
+	@GetMapping("/detalle/{id}")
+	public ResponseEntity<LocalidadDTO> getOne(@PathVariable int id){
+		LocalidadDTO localidad = localidadService.getOne(id);
+	    return new ResponseEntity<LocalidadDTO>(localidad, HttpStatus.OK);
 	}
 
 	@Override
-	@GetMapping("/{id}")
-	public LocalidadDTO getOne(@PathVariable int id) {
-		return ResponseEntity.status(200).body(localidadService.getOne(id)).getBody();
-	}
-
-	@Override
-	@PostMapping("/")
+	@PostMapping("nuevo")
 	public ResponseEntity save(@RequestBody LocalidadDTO t) {
 		LocalidadDTO temp = localidadService.save(t);
 		
@@ -55,15 +59,15 @@ public class LocalidadController implements ObjectController<LocalidadDTO>{
 	}
 
 	@Override
-	@PutMapping("/{id}")
-	public ResponseEntity updateEntity(@RequestBody LocalidadDTO t, @PathVariable int id) {
+	@PutMapping("/actualizar/{id}")
+	public ResponseEntity update(@RequestBody LocalidadDTO t, @PathVariable int id) {
 		
 		return ResponseEntity.status(201).body(localidadService.update(t, id));
 	}
 
 	@Override
-	@DeleteMapping("/{id}")
-	public ResponseEntity deleteEntity(@PathVariable int id) {
+	@DeleteMapping("/borrar/id}")
+	public ResponseEntity delete(@PathVariable int id) {
 		boolean det = localidadService.delete(id);
 		if (det) {
 			return ResponseEntity.status(204).body("");

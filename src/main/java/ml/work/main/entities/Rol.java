@@ -1,26 +1,15 @@
 package ml.work.main.entities;
 
-import javax.validation.constraints.NotNull;
 
-import java.util.Set;
+import org.hibernate.annotations.NaturalId;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import ml.work.main.enums.RolNombre;
 
@@ -32,14 +21,14 @@ public class Rol {
 	private int id;
 	
 	@Enumerated(EnumType.STRING)
-	@NotNull
+	@NaturalId
 	private RolNombre rolNombre;
 	
 	public Rol() {
 		
 	}
 	
-	public Rol(@NotNull RolNombre rolNombre) {
+	public Rol(RolNombre rolNombre) {
 		this.rolNombre = rolNombre;
 	}
 	
@@ -57,9 +46,6 @@ public class Rol {
 	public void setRolNombre(RolNombre rolNombre) {
 		this.rolNombre = rolNombre;
 	}
-	
-	
-	
-	
+
 
 }

@@ -6,13 +6,16 @@ import ml.work.main.entities.Domicilio;
 
 
 public abstract class PersonaDTO {
-	protected String nombre_persona;
 	
-	protected int dni;
+	protected String nombre;
+	
+	protected String nombreUsuario;
+	
+	protected Long dni;
 	
 	protected String password;
 	
-	protected int telefono;
+	protected Long telefono;
 	
 	protected String email;
 	
@@ -26,8 +29,9 @@ public abstract class PersonaDTO {
 
 	}
 
-	public PersonaDTO(String nombre_persona, int dni, String password, int telefono, String email, Date alta, Date baja) {
-		this.nombre_persona = nombre_persona;
+	public PersonaDTO(String nombre, String nombreUsuario, Long dni, String password, Long telefono, String email, Date alta, Date baja) {
+		this.nombre = nombre;
+		this.nombreUsuario = nombreUsuario;
 		this.dni = dni;
 		this.password = password;
 		this.telefono = telefono;
@@ -37,19 +41,27 @@ public abstract class PersonaDTO {
 		this.baja = baja;
 	}
 
-	public String getNombre_persona() {
-		return nombre_persona;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setNombre_persona(String nombre_persona) {
-		this.nombre_persona = nombre_persona;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
+	public String getNombreUsuario() {
+		return nombre;
 	}
 
-	public int getDni() {
+	public void setNombreUsuario(String nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
+	}
+
+	public Long getDni() {
 		return dni;
 	}
 
-	public void setDni(int dni) {
+	public void setDni(Long dni) {
 		this.dni = dni;
 	}
 
@@ -61,11 +73,11 @@ public abstract class PersonaDTO {
 		this.password = password;
 	}
 
-	public int getTelefono() {
+	public Long getTelefono() {
 		return telefono;
 	}
 
-	public void setTelefono(int telefono) {
+	public void setTelefono(Long telefono) {
 		this.telefono = telefono;
 	}
 

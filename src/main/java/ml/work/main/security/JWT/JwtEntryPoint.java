@@ -1,4 +1,4 @@
-package ml.work.main.security;
+package ml.work.main.security.JWT;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,8 +19,8 @@ public class JwtEntryPoint implements AuthenticationEntryPoint{
 	
 	@Override
     public void commence(HttpServletRequest req, HttpServletResponse res, AuthenticationException e) throws IOException, ServletException {
-        logger.error("faill método commence");
-        res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "credenciales erróneas");
+        logger.error("Error en el acceso al sistema");
+        res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "credenciales erróneas "+e.getMessage());
     }
 	
 }

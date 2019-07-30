@@ -4,14 +4,14 @@ import java.io.Serializable;
 import java.util.Date;
 import java.time.*;
 
-import ml.work.main.entities.Cliente;
 import ml.work.main.entities.Pedido;
 
 
 
 public class FacturaDTO extends ComprobanteDTO implements Serializable{
-		
-	private static final long serialVersionUID = 1L;
+
+	//private static final long serialVersionUID = -2190956373645571913L;
+	
 	private int numFactura;
 	private boolean esEfectivo;			
 	private float total;
@@ -24,7 +24,7 @@ public class FacturaDTO extends ComprobanteDTO implements Serializable{
 
 	public FacturaDTO(Date fecha, LocalTime hora, int numFactura, 
 			boolean esEfectivo, float total, Date fechaAnulado, Pedido pedidoConfirmado) {
-		super(fecha, hora, fechaAnulado);
+		super(fecha, fechaAnulado);
 		this.numFactura = numFactura;
 		this.esEfectivo = esEfectivo;
 		this.total = total;		

@@ -7,47 +7,37 @@ import ml.work.main.entities.Cargos;
 import ml.work.main.entities.Domicilio;
 
 public class EmpleadoDTO extends PersonaDTO implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
-	private int codigo_ingreso;
+	//private static final long serialVersionUID = -7120294417356785715L;
+
+	private Long idEmpleado;
+
+	private int codigoIngreso;
 	
 	private int cuil;
 	
-	private int id_empleado;
-	
-	//private int cod_cargo;
-	
 	private Cargos cargo;
-	
-	private Domicilio direccionEmpleado;
 
 	public EmpleadoDTO() {
 		super();
 	}
 
-	public EmpleadoDTO(String nombre_persona, int dni, String password, int telefono, String email,
-			int codigo_ingreso, int cuil, Domicilio direccionEmpleado, int id_empleado, 
-//			int cod_cargo, 
-			Date baja, Date alta) {
-		super(nombre_persona, dni, password, telefono, email, alta, baja);
-		this.codigo_ingreso = codigo_ingreso;
+	public EmpleadoDTO(String nombre, String nombreUsuario, Long dni, String password, Long telefono, String email,
+			int codigoIngreso, int cuil, Domicilio direccion, Long idEmpleado, 
+			Date alta, Date baja) {
+		super(nombre, nombreUsuario, dni, password, telefono, email, alta, baja);
+		this.codigoIngreso = codigoIngreso;
 		this.cuil = cuil;
-		this.direccionEmpleado = direccionEmpleado;
-//		this.cod_cargo = cod_cargo;
-		this.id_empleado = id_empleado;
-		this.alta = alta;
-		this.baja = baja;
+		this.idEmpleado = idEmpleado;
 	}
 
-	public int getCodigo_ingreso() {
-		return codigo_ingreso;
+	
+	public int getCodigoIngreso() {
+		return codigoIngreso;
 	}
 
-	public void setCodigo_ingreso(int codigo_ingreso) {
-		this.codigo_ingreso = codigo_ingreso;
+	public void setCodigoIngreso(int codigoIngreso) {
+		this.codigoIngreso = codigoIngreso;
 	}
 
 	public int getCuil() {
@@ -58,36 +48,12 @@ public class EmpleadoDTO extends PersonaDTO implements Serializable{
 		this.cuil = cuil;
 	}
 
-	public int getId_empleado() {
-		return id_empleado;
+	public Long getIdEmpleado() {
+		return idEmpleado;
 	}
 
-	public void setId_empleado(int id_empleado) {
-		this.id_empleado = id_empleado;
-	}
-
-//	public int getCod_cargo() {
-//		return cod_cargo;
-//	}
-//
-//	public void setCod_cargo(int cod_cargo) {
-//		this.cod_cargo = cod_cargo;
-//	}
-
-	public Date getAlta() {
-		return alta;
-	}
-
-	public void setAlta(Date alta) {
-		this.alta = alta;
-	}
-
-	public Date getBaja() {
-		return baja;
-	}
-
-	public void setBaja(Date baja) {
-		this.baja = baja;
+	public void setEmpleado(Long idEmpleado) {
+		this.idEmpleado = idEmpleado;
 	}
 
 	public Cargos getCargo() {
@@ -96,15 +62,14 @@ public class EmpleadoDTO extends PersonaDTO implements Serializable{
 
 	public void setCargo(Cargos cargo) {
 		this.cargo = cargo;
-	}
-
-	public Domicilio getDireccionEmpleado() {
-		return direccionEmpleado;
-	}
-
-	public void setDireccionEmpleado(Domicilio direccionEmpleado) {
-		this.direccionEmpleado = direccionEmpleado;
-	}		
+	}	
 	
+	/*public RolNombre getRolNombre() {
+		return RolNombre.ROLE_EMPLEADO;
+	}
+	
+	public void setRoles(RolNombre rol) {
+		this.setRoles(RolNombre.ROLE_EMPLEADO);
+	}*/
 	
 }

@@ -1,17 +1,14 @@
 package ml.work.main.dtos;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import ml.work.main.entities.Articulo;
 import ml.work.main.entities.ArticuloManufacturado;
 
 public class DetalleRecetaDTO implements Serializable{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = 143376846210759613L;
 
 	private int id_receta;
 	
@@ -71,7 +68,7 @@ public class DetalleRecetaDTO implements Serializable{
 		return fechaAnulado;
 	}
 
-	public void setFechaAnulado(Date fechaAnulado) {
-		this.fechaAnulado = fechaAnulado;
+	public void setFechaAnulado(Date date) {
+		this.fechaAnulado = date;
 	}		
 }

@@ -1,10 +1,9 @@
 package ml.work.main.entities;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,23 +11,26 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+
 @Entity
-@Table(name = "apirest_empleado")
+//@Table(name = "apirest_empleado")
 public  class Empleado extends Persona {
 
-	//@Id
-	//@Column(name = "empleado_id")
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
-	//private int id_empleado;
-	@EmbeddedId
-	private GenerarId generarId;
-	
+	@Id
+	@Column(name = "empleado_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long idEmpleado;
+	@NotNull
+	@Size(max=5,min=3)
 	@Column(name = "empleado_codIngreso")
-	private int codigo_ingreso;
+	private int codigoIngreso;
+	@NotNull
+	@Size(max=15,min=8)
 	@Column(name = "empleado_cuil")
 	private int cuil;
 
@@ -47,26 +49,20 @@ public  class Empleado extends Persona {
 		super();
 	}
 
-	public Empleado(GenerarId generarId, String nombre_persona, int dni, String password, int telefono, String email, int cuil, 
-			//Domicilio direccionEmpleado, 
-			int codigo_ingreso, 
-			int id_empleado, int cod_cargo, Cargos cargo, Date alta, Date baja) {
-		super(nombre_persona, dni, password, telefono, email, baja, alta);
-		this.generarId = generarId;
-		this.codigo_ingreso = codigo_ingreso;
+	public Empleado(String nombre, String nombreUsuario, Long dni, String password, Long telefono, String email, int cuil, 
+			int codigoIngreso, Long idEmpleado, int cod_cargo, Cargos cargo, Date alta, Date baja) {
+		super(nombre, nombreUsuario, dni, password, telefono, email, baja, alta);
+		this.codigoIngreso = codigoIngreso;
 		this.cuil = cuil;
-		//this.direccionEmpleado = direccionEmpleado;
-		//this.id_empleado = id_empleado;
-		//this.cod_cargo = cod_cargo;
 		this.cargo = cargo;
 	}
 
-	public int getCodigo_ingreso() {
-		return codigo_ingreso;
+	public int getCodigoIngreso() {
+		return codigoIngreso;
 	}
 
-	public void setCodigo_ingreso(int codigo_ingreso) {
-		this.codigo_ingreso = codigo_ingreso;
+	public void setCodigoIngreso(int codigoIngreso) {
+		this.codigoIngreso = codigoIngreso;
 	}
 
 	public int getCuil() {
@@ -77,21 +73,13 @@ public  class Empleado extends Persona {
 		this.cuil = cuil;
 	}
 
-	/*public int getId_empleado() {
-		return id_empleado;
+	public Long getIdEmpleado() {
+		return idEmpleado;
 	}
 
-	public void setId_empleado(int id_empleado) {
-		this.id_empleado = id_empleado;
-	}*/
-
-//	public int getCod_cargo() {
-//		return cod_cargo;
-//	}
-//
-//	public void setCod_cargo(int cod_cargo) {
-//		this.cod_cargo = cod_cargo;
-//	}
+	public void setId_empleado(Long idEmpleado) {
+		this.idEmpleado = idEmpleado;
+	}
 
 	public Cargos getCargo() {
 		return cargo;
@@ -100,8 +88,14 @@ public  class Empleado extends Persona {
 	public void setCargo(Cargos cargo) {
 		this.cargo = cargo;
 	}
-
 	
+	/*public RolNombre getRolNombre() {
+		return RolNombre.ROLE_EMPLEADO;
+	}
+	
+	public void setRoles(RolNombre rol) {
+		this.setRoles(RolNombre.ROLE_EMPLEADO);
+	}*/
 	
 	
 }

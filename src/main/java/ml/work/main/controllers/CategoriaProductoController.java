@@ -1,8 +1,12 @@
 package ml.work.main.controllers;
 
-import java.util.ArrayList;
+import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,7 +24,7 @@ import ml.work.main.service.CategoriaProductoService;
 @Controller
 @RestController
 @CrossOrigin(origins = "*") 
-@RequestMapping(path = "api/v1/categorias")
+@RequestMapping(path = "/api/v1/categorias")
 public class CategoriaProductoController implements ObjectController<CategoriaProductoDTO>{
 	
 	private CategoriaProductoService categoriaProductoService;
@@ -31,19 +35,25 @@ public class CategoriaProductoController implements ObjectController<CategoriaPr
 
 	@Override
 	@CrossOrigin("*")
-	@GetMapping(path = "/")
-	public ArrayList<CategoriaProductoDTO> getAll() {
-		return ResponseEntity.status(200).body(categoriaProductoService.getAll()).getBody();
+	@GetMapping(path = "/lista")
+	//@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<List<CategoriaProductoDTO>> getAll(){
+        List<CategoriaProductoDTO> lista = categoriaProductoService.getAll();
+        return new ResponseEntity<List<CategoriaProductoDTO>>(lista, HttpStatus.OK);
+    }
+	
+	@Override
+	@CrossOrigin("*")	
+	@GetMapping("/detalle/{id}")
+	//@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<CategoriaProductoDTO> getOne(@PathVariable int id){
+	     CategoriaProductoDTO uno = categoriaProductoService.getOne(id);
+	    return new ResponseEntity<CategoriaProductoDTO>(uno, HttpStatus.OK);
 	}
 
 	@Override
-	@GetMapping(path = "/{id}")
-	public CategoriaProductoDTO getOne(@PathVariable int id) {
-		return ResponseEntity.status(200).body(categoriaProductoService.getOne(id)).getBody();
-	}
-
-	@Override
-	@PostMapping("/")
+	@PostMapping("nuevo")
+	//@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity save(@RequestBody CategoriaProductoDTO body) {
 		CategoriaProductoDTO temp = categoriaProductoService.save(body);
 
@@ -55,14 +65,16 @@ public class CategoriaProductoController implements ObjectController<CategoriaPr
 	}
 
 	@Override
-	@PutMapping("/{id}")
-	public ResponseEntity updateEntity(@RequestBody CategoriaProductoDTO t, @PathVariable int id) {
+	@PutMapping("/actualizar/{id}")
+	//@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity update(@RequestBody CategoriaProductoDTO t, @PathVariable int id) {
 		return ResponseEntity.status(201).body(categoriaProductoService.update(t, id));
 	}
 
 	@Override
-	@DeleteMapping("/{id}")
-	public ResponseEntity deleteEntity(@PathVariable int id) {
+	@DeleteMapping("/borrar/{id}")
+	//@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity delete(@PathVariable int id) {
 		boolean det = categoriaProductoService.delete(id);
 
 		if (det) {

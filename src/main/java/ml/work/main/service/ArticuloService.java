@@ -3,22 +3,26 @@ package ml.work.main.service;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import ml.work.main.dtos.ArticuloDTO;
 import ml.work.main.entities.Articulo;
-import ml.work.main.entities.ArticuloManufacturado;
 import ml.work.main.repositories.ArticuloRepository;
 
 @Service
+@Transactional	
 public class ArticuloService implements ObjectService<ArticuloDTO> {
 
+	@Autowired
 	private ArticuloRepository articuloRepository;
 
 	public ArticuloService(ArticuloRepository articuloRepository) {
 		this.articuloRepository = articuloRepository;
 	}
 
+	
 	@Override
 	public ArrayList<ArticuloDTO> getAll() {
 

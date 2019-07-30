@@ -7,15 +7,12 @@ public abstract class ComprobanteDTO {
 		
 	protected Date fecha;
 		
-	protected LocalTime hora;
-		
 	protected Date fechaAnulado;
 	
 	public ComprobanteDTO() {}
 
-	public ComprobanteDTO(Date fecha, LocalTime hora, Date fechaAnulado) {		
+	public ComprobanteDTO(Date fecha, Date fechaAnulado) {		
 		this.fecha = fecha;
-		this.hora = hora;
 		this.fechaAnulado = fechaAnulado;
 	}
 
@@ -25,14 +22,6 @@ public abstract class ComprobanteDTO {
 
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
-	}
-
-	public LocalTime getHora() {
-		return hora;
-	}
-
-	public void setHora(LocalTime hora) {
-		this.hora = hora;
 	}
 
 	public Date getFechaAnulado() {

@@ -1,11 +1,13 @@
 package ml.work.main.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 import ml.work.main.dtos.ArticuloManufacturadoDTO;
@@ -45,9 +47,15 @@ public class ArticuloManufacturadoService implements ObjectService<ArticuloManuf
 		return result;
 	}
 	
+	public List<ArticuloManufacturado> obtenerTodos(){
+        List<ArticuloManufacturado> lista = articuloManufacturadoRepository.findAll();
+        return lista;
+    }
+	
 	
 //	Método para encontrar platos que están activos en el menú o no.
 //	Con el booleano aviso si quiero los platos del menú o los que están dados de baja
+	
 	public ArrayList<ArticuloManufacturadoDTO> getEnMenu(boolean buscar) { 
 		ArrayList<ArticuloManufacturadoDTO> result = new ArrayList<>();
 
@@ -166,6 +174,8 @@ public class ArticuloManufacturadoService implements ObjectService<ArticuloManuf
 		}
 		return t;
 	}
+	
+	
 	
 	@Override
 	public boolean delete(int id) {

@@ -1,14 +1,8 @@
 package ml.work.main.entities;
 
-
-
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
@@ -24,9 +18,13 @@ public abstract class Persona {
 	protected String nombre_persona;
 	
 	@NotNull
+	@Column(name = "persona_nombreUsuario")
+	protected String nombre_usuario;
+	
+	@NotNull
 	@Size(max=8)
 	@Column(name = "persona_dni")
-	protected int dni;
+	protected Long dni;
 	
 	@NotNull
 	@Size(min=6)
@@ -36,7 +34,7 @@ public abstract class Persona {
 	@NotNull
 	@Size(max=20)
 	@Column(name = "persona_telefono")
-	protected int telefono;
+	protected Long telefono;
 	
 	@NotNull
 	@Size(max=60)
@@ -57,8 +55,9 @@ public abstract class Persona {
 
 	}
 
-	public Persona(String nombre_persona, int dni, String password, int telefono, String email, Date baja, Date alta) {
-		this.nombre_persona = nombre_persona;
+	public Persona(String nombre, String nombreUsuario, Long dni, String password, Long telefono, String email, Date baja, Date alta) {
+		this.nombre_persona = nombre;
+		this.nombre_usuario = nombreUsuario;
 		this.dni = dni;
 		this.password = password;
 		this.telefono = telefono;
@@ -68,19 +67,27 @@ public abstract class Persona {
 		this.baja = baja;
 	}
 
-	public String getNombre_persona() {
+	public String getNombrePersona() {
 		return nombre_persona;
 	}
 
-	public void setNombre_persona(String nombre_persona) {
-		this.nombre_persona = nombre_persona;
+	public void setNombre(String nombre) {
+		this.nombre_persona = nombre;
+	}
+	
+	public String getNombre_Usuario() {
+		return nombre_usuario;
 	}
 
-	public int getDni() {
+	public void setNombre_Usuario(String nombreUsuario) {
+		this.nombre_usuario = nombreUsuario;
+	}
+
+	public Long getDni() {
 		return dni;
 	}
 
-	public void setDni(int dni) {
+	public void setDni(Long dni) {
 		this.dni = dni;
 	}
 
@@ -92,11 +99,11 @@ public abstract class Persona {
 		this.password = password;
 	}
 
-	public int getTelefono() {
+	public Long getTelefono() {
 		return telefono;
 	}
 
-	public void setTelefono(int telefono) {
+	public void setTelefono(Long telefono) {
 		this.telefono = telefono;
 	}
 

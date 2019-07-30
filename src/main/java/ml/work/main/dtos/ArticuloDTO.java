@@ -8,11 +8,11 @@ import ml.work.main.entities.UnidadMedida;
 
 public class ArticuloDTO implements Serializable{
 
-	private static final long serialVersionUID = 1L;
+	//private static final long serialVersionUID = -7565503989864701925L;
 
 	private int id_articulo;
 	
-	private String nombre_articulo;
+	private String nombreArticulo;
 	
 	private float costo;
 	
@@ -39,12 +39,12 @@ public class ArticuloDTO implements Serializable{
 	public ArticuloDTO() {
 	}	
 
-	public ArticuloDTO(int id_articulo, String nombre_articulo, float costo, boolean esPrima, double stock,
+	public ArticuloDTO(int id_articulo, String nombreArticulo, float costo, boolean esPrima, double stock,
 			CategoriaProducto categoriaProd, UnidadMedida medidaProd, 
 //			List<DetalleFactura> detFactura, List<DetalleReceta> detReceta,  Set<Precios> precioArticulo,
 			double stockMinimo, boolean enLista, String foto, String detalle, float precio) {
 		this.id_articulo = id_articulo;
-		this.nombre_articulo = nombre_articulo;
+		this.nombreArticulo = nombreArticulo;
 		this.costo = costo;
 		this.esPrima = esPrima;
 		this.stock = stock;
@@ -70,11 +70,11 @@ public class ArticuloDTO implements Serializable{
 	}
 
 	public String getNombre_articulo() {
-		return nombre_articulo;
+		return nombreArticulo;
 	}
 
-	public void setNombre_articulo(String nombre_articulo) {
-		this.nombre_articulo = nombre_articulo;
+	public void setNombre_articulo(String nombreArticulo) {
+		this.nombreArticulo = nombreArticulo;
 	}
 
 	public float getCosto() {

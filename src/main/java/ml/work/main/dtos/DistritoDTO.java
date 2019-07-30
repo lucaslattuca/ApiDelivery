@@ -5,7 +5,9 @@ import java.io.Serializable;
 import ml.work.main.entities.Localidad;
 
 public class DistritoDTO implements Serializable{
-	private static final long serialVersionUID = 1L;
+
+	//private static final long serialVersionUID = 1411016256431022186L;
+
 	private int id_Distrito;
 	
 	private String nombreDistrito;
@@ -56,10 +58,6 @@ public class DistritoDTO implements Serializable{
 //	public void setDomicilios(List<Domicilio> domicilios) {
 //		this.domicilios = domicilios;
 //	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 	
 	
 }

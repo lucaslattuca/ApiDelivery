@@ -9,14 +9,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+//import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+//import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "apirest_articulos")
-@JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="@id")
+//@JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="@id")
 public class Articulo {
 	
 	@Id
@@ -51,12 +50,8 @@ public class Articulo {
 	@Column(name = "articulo_detalle")
 	private String detalle;
 	
-	@NotNull
 	@Column(name = "articulo_precio")
 	private float precioA;
-	
-	
-	
 	
 	
 	@ManyToOne
@@ -71,12 +66,12 @@ public class Articulo {
 	public Articulo() {
 	}
 		
-	public Articulo(int id_articulo, String nombre_articulo, float costo, boolean esPrima, 
+	public Articulo(int id_articulo, String nombreArticulo, float costo, boolean esPrima, 
 			double stock, CategoriaProducto categoriaProd, UnidadMedida medidaProd, 
 //			List<DetalleFactura> detFactura, List<DetalleReceta> detReceta, Set<Precios> precioArticulo
 			double stockMinimo, boolean enLista, String foto, String detalle, float precio) {
 		this.id_articulo = id_articulo;
-		this.nombreArticulo = nombre_articulo;
+		this.nombreArticulo = nombreArticulo;
 		this.costo = costo;
 		this.esPrima = esPrima;
 		this.stock = stock;
@@ -104,8 +99,8 @@ public class Articulo {
 		return nombreArticulo;
 	}
 
-	public void setNombre_articulo(String nombre_articulo) {
-		this.nombreArticulo = nombre_articulo;
+	public void setNombre_articulo(String nombreArticulo) {
+		this.nombreArticulo = nombreArticulo;
 	}
 
 	public float getCosto() {

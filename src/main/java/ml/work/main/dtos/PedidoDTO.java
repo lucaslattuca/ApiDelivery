@@ -3,19 +3,20 @@ package ml.work.main.dtos;
 import java.io.Serializable;
 import java.util.Date;
 
-import ml.work.main.entities.Cliente;
+import ml.work.main.entities.Usuario;
 
-import java.time.*;
 
 public class PedidoDTO extends ComprobanteDTO implements Serializable{
+
+	//private static final long serialVersionUID = -3899598285715927457L;
 	
-	private static final long serialVersionUID = 1L;
+	private boolean con_envio;
 	private int numPedido;
 	private float total;
 	private String observaciones;
 	private boolean estadoListo;
 	private String nombreTemporal;
-	private Cliente cliente;
+	private Usuario cliente;
 	private String informe;
 	private float demora;
 	
@@ -23,11 +24,12 @@ public class PedidoDTO extends ComprobanteDTO implements Serializable{
 		super();
 	}
 	
-	public PedidoDTO(Date fecha, LocalTime hora, Cliente cliente, int numPedido, String nombreTemporal, 
+	public PedidoDTO(Date fecha, boolean con_envio, Usuario cliente, int numPedido, String nombreTemporal, 
 			boolean estadoListo, float total, Date fechaAnulado, String observaciones, String informe, float demora) {
-		super(fecha, hora, fechaAnulado);
+		super(fecha, fechaAnulado);
 		this.numPedido = numPedido;
 		this.total = total;
+		this.con_envio = con_envio;
 		this.observaciones = observaciones;
 		this.cliente = cliente;
 		this.nombreTemporal = nombreTemporal;
@@ -60,11 +62,11 @@ public class PedidoDTO extends ComprobanteDTO implements Serializable{
 		this.observaciones = observaciones;
 	}
 
-	public Cliente getCliente() {
+	public Usuario getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(Cliente cliente) {
+	public void setCliente(Usuario cliente) {
 		this.cliente = cliente;
 	}
 
@@ -98,5 +100,14 @@ public class PedidoDTO extends ComprobanteDTO implements Serializable{
 
 	public void setDemora(float demora) {
 		this.demora = demora;
+	}
+
+	public boolean isCon_envio() {
+		return con_envio;
+	}
+
+	public void setCon_envio(boolean con_envio) {
+		this.con_envio = con_envio;
 	}		
+	
 }

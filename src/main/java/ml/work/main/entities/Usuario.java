@@ -1,15 +1,13 @@
 package ml.work.main.entities;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,100 +15,107 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
-import ml.work.main.enums.RolNombre;
 
 @Entity
-public class Usuario {
-	
+public class Usuario{
+
+	//private static final long serialVersionUID = -2758700440666948792L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
+	private int id;
 	
 	@NotNull
+	@Column(unique = true)
 	private String nombre;
 	
 	@NotNull
 	@Column(unique = true)
 	private String nombreUsuario;
+		
+	@NotNull
+	@Column(unique = true)
+	private String email;
 	
-	 @NotNull
-	    @Column(unique = true)
-	    private String email;
+	@NotNull
+	private String password;
+	
+	private Long telefono;
+		
+	@NotNull
+	@ManyToMany
+	@JoinTable(name = "usuario_rol", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "rol_id"))
+    private Set<Rol> roles = new HashSet<>();
 
-	    @NotNull
-	    private String password;
+	
+    public Usuario() {
+    }
 
-	    @NotNull
-	    @ManyToMany
-	    @JoinTable(name = "usuario_rol", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "rol_id"))
-	    private Set<Rol> roles = new HashSet<>();
+    public Usuario(String nombre, String nombreUsuario, String email, 
+    		String password, Long telefono) {
+        this.nombre = nombre;
+        this.nombreUsuario = nombreUsuario;
+        this.email = email;
+        this.password = password;
+        this.telefono = telefono;
+    }
 
-	    public Usuario() {
-	    }
+    public int getId() {
+        return id;
+    }
 
-	    public Usuario(@NotNull String nombre, @NotNull String nombreUsuario, @NotNull String email, @NotNull String password) {
-	        this.nombre = nombre;
-	        this.nombreUsuario = nombreUsuario;
-	        this.email = email;
-	        this.password = password;
-	    }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	    public Long getId() {
-	        return id;
-	    }
+    public String getNombre() {
+        return nombre;
+    }
 
-	    public void setId(Long id) {
-	        this.id = id;
-	    }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	    public String getNombre() {
-	        return nombre;
-	    }
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
 
-	    public void setNombre(String nombre) {
-	        this.nombre = nombre;
-	    }
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
 
-	    public String getNombreUsuario() {
-	        return nombreUsuario;
-	    }
+    public String getEmail() {
+        return email;
+    }
 
-	    public void setNombreUsuario(String nombreUsuario) {
-	        this.nombreUsuario = nombreUsuario;
-	    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	    public String getEmail() {
-	        return email;
-	    }
+    public String getPassword() {
+        return password;
+    }
 
-	    public void setEmail(String email) {
-	        this.email = email;
-	    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	    public String getPassword() {
-	        return password;
-	    }
+    public Long getTelefono() {
+        return telefono;
+    }
 
-	    public void setPassword(String password) {
-	        this.password = password;
-	    }
+    public void setTelefono(Long telefono) {
+        this.telefono = telefono;
+    }
+    
+    public Set<Rol> getRoles() {
+        return roles;
+    }
 
-	    public Set<Rol> getRoles() {
-	        return roles;
-	    }
-
-	    public void setRoles(Set<Rol> roles) {
-	        this.roles = roles;
-	    }	
+    public void setRoles(Set<Rol> roles) {
+        this.roles = roles;
+    }	
 	
 
 }
+

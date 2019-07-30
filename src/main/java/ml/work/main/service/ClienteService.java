@@ -25,11 +25,11 @@ public class ClienteService implements ObjectService<ClienteDTO> {
 		for (Cliente cliente : clienteRepository.findAll()) {
 			ClienteDTO temp = new ClienteDTO();
 			//temp.setId_usuario(cliente.getId_usuario());
-			temp.setNombre_usuario(cliente.getNombre_usuario());
+			temp.setNombreUsuario(cliente.getNombre_Usuario());
 			temp.setDireccion(cliente.getDireccion());
 			temp.setDni(cliente.getDni());
 			temp.setEmail(cliente.getEmail());
-			temp.setNombre_persona(cliente.getNombre_persona());
+			temp.setNombre(cliente.getNombrePersona());
 			temp.setPassword(cliente.getPassword());
 			temp.setTelefono(cliente.getTelefono());
 			//temp.setFacturas(cliente.getFacturas());
@@ -47,12 +47,12 @@ public class ClienteService implements ObjectService<ClienteDTO> {
 		ClienteDTO temp = new ClienteDTO();
 		try {
 			Cliente cliente = aOptional.get();
-			temp.setNombre_usuario(cliente.getNombre_usuario());
+			temp.setNombreUsuario(cliente.getNombre_Usuario());
 			//temp.setId_usuario(cliente.getId_usuario());
 			temp.setDireccion(cliente.getDireccion());
 			temp.setDni(cliente.getDni());
 			temp.setEmail(cliente.getEmail());
-			temp.setNombre_persona(cliente.getNombre_persona());
+			temp.setNombre(cliente.getNombrePersona());
 			temp.setPassword(cliente.getPassword());
 			temp.setTelefono(cliente.getTelefono());
 			//temp.setFacturas(cliente.getFacturas());
@@ -71,8 +71,8 @@ public class ClienteService implements ObjectService<ClienteDTO> {
 		cliente.setDireccion(t.getDireccion());
 		cliente.setDni(t.getDni());
 		cliente.setEmail(t.getEmail());
-		cliente.setNombre_persona(t.getNombre_persona());
-		cliente.setNombre_usuario(t.getNombre_usuario());
+		cliente.setNombre(t.getNombre());
+		cliente.setNombre_Usuario(t.getNombreUsuario());
 		cliente.setPassword(t.getPassword());
 		cliente.setTelefono(t.getTelefono());	
 		//cliente.setFacturas(t.getFacturas());
@@ -94,8 +94,8 @@ public class ClienteService implements ObjectService<ClienteDTO> {
 			temp.setDireccion(t.getDireccion());
 			temp.setDni(t.getDni());
 			temp.setEmail(t.getEmail());
-			temp.setNombre_persona(t.getNombre_persona());
-			temp.setNombre_usuario(t.getNombre_usuario());
+			temp.setNombre(t.getNombre());
+			temp.setNombre_Usuario(t.getNombreUsuario());
 			temp.setPassword(t.getPassword());
 			temp.setTelefono(t.getTelefono());	
 			//temp.setFacturas(t.getFacturas());

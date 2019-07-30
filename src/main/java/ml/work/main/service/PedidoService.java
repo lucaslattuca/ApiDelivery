@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import ml.work.main.dtos.PedidoDTO;
+import ml.work.main.entities.Articulo;
 import ml.work.main.entities.DetalleFactura;
 import ml.work.main.entities.Pedido;
 import ml.work.main.repositories.DetalleFacturaRepository;
@@ -34,13 +35,13 @@ public class PedidoService implements ObjectService<PedidoDTO> {
 			temp.setNumPedido(pedido.getNumPedido());
 			temp.setTotal(pedido.getTotal());
 			temp.setFecha(pedido.getFecha());
-			temp.setHora(pedido.getHora());
 			temp.setFechaAnulado(pedido.getFechaAnulado());
 			temp.setObservaciones(pedido.getObservaciones());
 			temp.setCliente(pedido.getCliente());
 			temp.setEstadoListo(pedido.isEstadoListo());
 			temp.setNombreTemporal(pedido.getNombreTemporal());
 			temp.setDemora(pedido.getDemora());
+			temp.setCon_envio(pedido.isCon_envio());
 			
 			//Para traer todos los detalles del pedido en formato String
 			String frase = "";		
@@ -48,9 +49,9 @@ public class PedidoService implements ObjectService<PedidoDTO> {
 			for (DetalleFactura detFactura : detalleFacturaRepository.findAll()) {
 				if(detFactura.getPedido().getNumPedido() == pedido.getNumPedido()) {
 					if(detFactura.getManufacturado() != null) {
-						frase += detFactura.getCantidad()+" x "+detFactura.getManufacturado().getNombre_articuloM()+"\n";
+						frase += detFactura.getCantidad()+" x "+detFactura.getManufacturado().getNombre_articuloM()+" - ";
 					}else {
-						frase += detFactura.getCantidad()+" x "+detFactura.getItem().getNombre_articulo()+"\n";
+						frase += detFactura.getCantidad()+" x "+detFactura.getItem().getNombre_articulo()+" - ";
 					}					 
 				}
 			}
@@ -62,6 +63,10 @@ public class PedidoService implements ObjectService<PedidoDTO> {
 		return result;				
 	}
 	
+	
+	public boolean existePorId(int id){
+        return pedidoRepository.existsById(id);
+    }
 
 	@Override
 	public PedidoDTO getOne(int id) {		
@@ -76,13 +81,13 @@ public class PedidoService implements ObjectService<PedidoDTO> {
 			result.setNumPedido(resultBD.getNumPedido());
 			result.setTotal(resultBD.getTotal());
 			result.setFecha(resultBD.getFecha());
-			result.setHora(resultBD.getHora());
 			result.setFechaAnulado(resultBD.getFechaAnulado());
 			result.setObservaciones(resultBD.getObservaciones());
 			result.setCliente(resultBD.getCliente());
 			result.setEstadoListo(resultBD.isEstadoListo());
 			result.setNombreTemporal(resultBD.getNombreTemporal());
 			result.setDemora(resultBD.getDemora());
+			result.setCon_envio(resultBD.isCon_envio());
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -96,7 +101,6 @@ public class PedidoService implements ObjectService<PedidoDTO> {
 		Pedido guardado = new Pedido();
 
 		guardado.setFecha(body.getFecha());
-		guardado.setHora(body.getHora());
 		guardado.setTotal(body.getTotal());
 		guardado.setFechaAnulado(body.getFechaAnulado());
 		guardado.setObservaciones(body.getObservaciones());
@@ -104,6 +108,7 @@ public class PedidoService implements ObjectService<PedidoDTO> {
 		guardado.setNombreTemporal(body.getNombreTemporal());
 		guardado.setEstadoListo(false);
 		guardado.setDemora(0);
+		guardado.setCon_envio(body.isCon_envio());
 
 		try {
 			pedidoRepository.save(guardado);
@@ -124,7 +129,6 @@ public class PedidoService implements ObjectService<PedidoDTO> {
 			temp = pOptional.get();
 
 			temp.setFecha(t.getFecha());
-			temp.setHora(t.getHora());
 			temp.setTotal(t.getTotal());
 			temp.setFechaAnulado(t.getFechaAnulado());
 			temp.setObservaciones(t.getObservaciones());
@@ -132,6 +136,7 @@ public class PedidoService implements ObjectService<PedidoDTO> {
 			temp.setNombreTemporal(t.getNombreTemporal());
 			temp.setEstadoListo(t.isEstadoListo());
 			temp.setDemora(t.getDemora());
+			temp.setCon_envio(t.isCon_envio());
 		
 			pedidoRepository.save(temp);
 			t.setNumPedido(temp.getNumPedido());

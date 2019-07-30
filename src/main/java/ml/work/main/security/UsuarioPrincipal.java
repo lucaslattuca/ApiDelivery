@@ -12,20 +12,24 @@ import ml.work.main.entities.Usuario;
 
 public class UsuarioPrincipal implements UserDetails{
 
-	private Long id;
+	//private static final long serialVersionUID = 6492543406772002604L;
+
+	private int id;
 	private String nombre;
 	private String nombreUsuario;
 	private String email;
 	private String password;
+	private Long telefono;
 	
 	private Collection<? extends GrantedAuthority> authorities;
 	
-	public UsuarioPrincipal(Long id, String nombre, String nombreUsuario, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+	public UsuarioPrincipal(int id, String nombre, String nombreUsuario, String email, String password, Long telefono, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.nombre = nombre;
         this.nombreUsuario = nombreUsuario;
         this.email = email;
         this.password = password;
+        this.telefono = telefono;
         this.authorities = authorities;
     }
 
@@ -35,10 +39,10 @@ public class UsuarioPrincipal implements UserDetails{
     public static UsuarioPrincipal build(Usuario usuario){
         List<GrantedAuthority> authorities =
                 usuario.getRoles().stream().map(rol -> new SimpleGrantedAuthority(rol.getRolNombre().name())).collect(Collectors.toList());
-        return new UsuarioPrincipal(usuario.getId(), usuario.getNombre(), usuario.getNombreUsuario(), usuario.getEmail(), usuario.getPassword(), authorities);
+        return new UsuarioPrincipal(usuario.getId(), usuario.getNombre(), usuario.getNombreUsuario(), usuario.getEmail(), usuario.getPassword(), usuario.getTelefono(), authorities);
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
@@ -64,6 +68,10 @@ public class UsuarioPrincipal implements UserDetails{
     public String getUsername() {
         return nombreUsuario;
     }
+        
+    public Long getTelefono() {
+    	return telefono;
+    }
 
     @Override
     public boolean isAccountNonExpired() {
@@ -84,4 +92,5 @@ public class UsuarioPrincipal implements UserDetails{
     public boolean isEnabled() {
         return true;
     }
+ 
 }

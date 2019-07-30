@@ -2,7 +2,7 @@ package ml.work.main.dtos;
 
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import ml.work.main.entities.Articulo;
 import ml.work.main.entities.ArticuloManufacturado;
@@ -10,11 +10,9 @@ import ml.work.main.entities.Factura;
 import ml.work.main.entities.Pedido;
 
 public class DetalleFacturaDTO implements Serializable{
+
+	private static final long serialVersionUID = -6374009544342054082L;
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private int idDetalle;
 	private int cantidad;
 	private float subtotal;

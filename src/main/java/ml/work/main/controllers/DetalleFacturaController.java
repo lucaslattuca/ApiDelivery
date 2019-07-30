@@ -1,8 +1,11 @@
 package ml.work.main.controllers;
 
-import java.util.ArrayList;  
+import java.util.ArrayList;
+import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,7 +23,7 @@ import ml.work.main.service.DetalleFacturaService;
 @Controller
 @RestController
 @CrossOrigin(origins = "*") 
-@RequestMapping(path="api/v1/detalles_factura")
+@RequestMapping(path="/api/v1/detalles_factura")
 public class DetalleFacturaController implements ObjectController<DetalleFacturaDTO>{
 
 	private DetalleFacturaService detalleFacturaService;
@@ -31,44 +34,54 @@ public class DetalleFacturaController implements ObjectController<DetalleFactura
 	
 	@Override
 	@CrossOrigin("*")
-	@GetMapping(path="/")
-	public ArrayList<DetalleFacturaDTO> getAll() {
-		return ResponseEntity.status(200).body(detalleFacturaService.getAll()).getBody();
+	@GetMapping(path="/lista")
+	//@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<List<DetalleFacturaDTO>> getAll(){
+        List<DetalleFacturaDTO> lista = detalleFacturaService.getAll();
+        return new ResponseEntity<List<DetalleFacturaDTO>>(lista, HttpStatus.OK);
+    }
+	
+	@Override
+	@CrossOrigin("*")
+	@GetMapping("/detalle/{id}")
+	//@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<DetalleFacturaDTO> getOne(@PathVariable int id){
+	     DetalleFacturaDTO uno = detalleFacturaService.getOne(id);
+	    return new ResponseEntity<DetalleFacturaDTO>(uno, HttpStatus.OK);
 	}
 	
+	
 	@GetMapping(path="/porPedido/{idPedido}")
+	//@PreAuthorize("hasRole('ADMIN')")
 	public ArrayList<DetalleFacturaDTO> getXPedido(@PathVariable int idPedido) {
 		return ResponseEntity.status(200).body(detalleFacturaService.getXPedido(idPedido)).getBody();
 	}
 
 
 	@Override
-	@GetMapping(path = "/{id}")
-	public DetalleFacturaDTO getOne(@PathVariable int id) {
-		return ResponseEntity.status(200).body(detalleFacturaService.getOne(id)).getBody();
-	}
-
-	@Override
-	@PostMapping("/")
+	@PostMapping("nuevo")
+	//@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity save(@RequestBody DetalleFacturaDTO body) {
 		DetalleFacturaDTO temp = detalleFacturaService.save(body);
 
 		if (temp.getIdDetalle() != 0) {
 			return ResponseEntity.status(201).body(temp);
 		} else {
-			return ResponseEntity.status(400).body("{'error' : 'bad request'}");
+			return ResponseEntity.status(400).body("{'error' : 'bad request fallo al generar detalle'}");
 		}
 	}
 
 	@Override
-	@PutMapping("/{id}")
-	public ResponseEntity updateEntity(@RequestBody DetalleFacturaDTO t, @PathVariable int id) {
+	@PutMapping("/actualizar/{id}")
+	//@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity update(@RequestBody DetalleFacturaDTO t, @PathVariable int id) {
 		return ResponseEntity.status(201).body(detalleFacturaService.update(t, id));
 	}
 
 	@Override
-	@DeleteMapping("/{id}")
-	public ResponseEntity deleteEntity(@PathVariable int id) {
+	@DeleteMapping("/borrar/{id}")
+	//@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity delete(@PathVariable int id) {
 		boolean det = detalleFacturaService.delete(id);
 
 		if (det) {

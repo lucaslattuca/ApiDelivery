@@ -31,13 +31,13 @@ public class EmpleadoService implements ObjectService<EmpleadoDTO>  {
 			temp.setBaja(empleado.getBaja());
 			temp.setCargo(empleado.getCargo());
 //			temp.setCod_cargo(empleado.getCod_cargo());
-			temp.setCodigo_ingreso(empleado.getCodigo_ingreso());
+			temp.setCodigoIngreso(empleado.getCodigoIngreso());
 			temp.setCuil(empleado.getCuil());
 			temp.setDireccion(empleado.getDireccion());
 			temp.setDni(empleado.getDni());
 			temp.setEmail(empleado.getEmail());
 			//temp.setId_empleado(empleado.getId_empleado());
-			temp.setNombre_persona(empleado.getNombre_persona());
+			temp.setNombre(empleado.getNombrePersona());
 			temp.setPassword(empleado.getPassword());
 			temp.setTelefono(empleado.getTelefono());
 			
@@ -59,7 +59,7 @@ public class EmpleadoService implements ObjectService<EmpleadoDTO>  {
 			result.setBaja(resultBD.getBaja());
 			result.setCargo(resultBD.getCargo());
 //			result.setCod_cargo(resultBD.getCod_cargo());
-			result.setCodigo_ingreso(resultBD.getCodigo_ingreso());
+			result.setCodigoIngreso(resultBD.getCodigoIngreso());
 			result.setCuil(resultBD.getCuil());
 			result.setDireccion(resultBD.getDireccion());
 			result.setDni(resultBD.getDni());
@@ -67,7 +67,7 @@ public class EmpleadoService implements ObjectService<EmpleadoDTO>  {
 			//result.setId_empleado(resultBD.getId_empleado());
 			result.setPassword(resultBD.getPassword());
 			result.setTelefono(result.getTelefono());
-			result.setNombre_persona(resultBD.getNombre_persona());
+			result.setNombre(resultBD.getNombrePersona());
 
 			
 		} catch (Exception e) {
@@ -84,13 +84,13 @@ public class EmpleadoService implements ObjectService<EmpleadoDTO>  {
 		guardado.setBaja(t.getBaja());
 		guardado.setCargo(t.getCargo());
 //		guardado.setCod_cargo(t.getCod_cargo());
-		guardado.setCodigo_ingreso(t.getCodigo_ingreso());
+		guardado.setCodigoIngreso(t.getCodigoIngreso());
 		guardado.setCuil(t.getCuil());
 		guardado.setDireccion(t.getDireccion());
 		guardado.setDni(t.getDni());
 		guardado.setEmail(t.getEmail());
 		guardado.setPassword(t.getPassword());
-		guardado.setNombre_persona(t.getNombre_persona());
+		guardado.setNombre(t.getNombre());
 		guardado.setTelefono(t.getTelefono());
 		
 		try {
@@ -116,12 +116,12 @@ public class EmpleadoService implements ObjectService<EmpleadoDTO>  {
 			temp.setBaja(t.getBaja());
 			temp.setCargo(t.getCargo());
 //			temp.setCod_cargo(t.getCod_cargo());
-			temp.setCodigo_ingreso(t.getCodigo_ingreso());
+			temp.setCodigoIngreso(t.getCodigoIngreso());
 			temp.setCuil(t.getCuil());
 			temp.setDireccion(t.getDireccion());
 			temp.setDni(t.getDni());
 			temp.setEmail(t.getEmail());
-			temp.setNombre_persona(t.getNombre_persona());
+			temp.setNombre(t.getNombre());
 			temp.setPassword(t.getPassword());
 			temp.setTelefono(t.getTelefono());
 			

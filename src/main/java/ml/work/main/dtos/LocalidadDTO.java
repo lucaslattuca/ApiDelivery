@@ -3,7 +3,9 @@ package ml.work.main.dtos;
 import java.io.Serializable;
 
 public class LocalidadDTO implements Serializable{
-	private static final long serialVersionUID = 1L;
+
+	//private static final long serialVersionUID = 8191594749388357159L;
+
 	private int id_Localidad;
 
 	private String nombre_localidad;
@@ -35,10 +37,6 @@ public class LocalidadDTO implements Serializable{
 
 	public void setNombre_localidad(String nombre_localidad) {
 		this.nombre_localidad = nombre_localidad;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 //	public List<Distrito> getDistritos() {

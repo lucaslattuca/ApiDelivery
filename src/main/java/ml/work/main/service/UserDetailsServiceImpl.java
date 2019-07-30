@@ -13,7 +13,7 @@ import ml.work.main.security.UsuarioPrincipal;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService{
 
-	 @Autowired
+	@Autowired
     UsuarioService usuarioService;
 
     @Override
@@ -22,5 +22,4 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         Usuario usuario = usuarioService.getByNombreUsuario(nombreUsuario).get();
         return UsuarioPrincipal.build(usuario);
     }
-	
 }

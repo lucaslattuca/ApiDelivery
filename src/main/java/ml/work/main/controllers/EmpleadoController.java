@@ -2,6 +2,7 @@ package ml.work.main.controllers;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,12 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ml.work.main.dtos.EmpleadoDTO;
+import ml.work.main.dtos.LocalidadDTO;
+import ml.work.main.entities.Usuario;
 import ml.work.main.service.EmpleadoService;
 
 @Controller
 @RestController
 @CrossOrigin(origins = "*") 
-@RequestMapping(path = "api/v1/empleados")
+@RequestMapping(path = "/api/v1/empleados")
 public class EmpleadoController implements ObjectController<EmpleadoDTO>{
 
 	private EmpleadoService empleadoService;
@@ -31,25 +34,26 @@ public class EmpleadoController implements ObjectController<EmpleadoDTO>{
 	
 	@Override
 	@CrossOrigin("*")
-	@GetMapping(path = "/")
-	public List<EmpleadoDTO> getAll() {
-		return ResponseEntity.status(200).body(empleadoService.getAll()).getBody();
+	@GetMapping(path = "/lista")
+	public ResponseEntity<List<EmpleadoDTO>> getAll(){
+        List<EmpleadoDTO> lista = empleadoService.getAll();
+        return new ResponseEntity<List<EmpleadoDTO>>(lista, HttpStatus.OK);
+    }
+
+	@Override
+	@GetMapping("/detalle/{id}")
+	public ResponseEntity<EmpleadoDTO> getOne(@PathVariable int id){
+		EmpleadoDTO uno = empleadoService.getOne(id);
+	    return new ResponseEntity<EmpleadoDTO>(uno, HttpStatus.OK);
 	}
 	
 	
 	@Override
-	@GetMapping(path = "/{id}")
-	public EmpleadoDTO getOne(@PathVariable int id) {
-		return ResponseEntity.status(200).body(empleadoService.getOne(id)).getBody();
-	}
-	
-	
-	@Override
-	@PostMapping("/")
+	@PostMapping("nuevo")
 	public ResponseEntity save(@RequestBody EmpleadoDTO body) {
 		EmpleadoDTO temp = empleadoService.save(body);
 
-		if (temp.getId_empleado() != 0) {
+		if (temp.getIdEmpleado() != 0) {
 			return ResponseEntity.status(201).body(temp);
 		} else {
 			return ResponseEntity.status(400).body("{'error' : 'bad request'}");
@@ -57,20 +61,20 @@ public class EmpleadoController implements ObjectController<EmpleadoDTO>{
 	}
 	
 	@Override
-	@PutMapping("/{id}")
-	public ResponseEntity updateEntity(@RequestBody EmpleadoDTO t, @PathVariable int id) {
+	@PutMapping("/actualizar/{id}")
+	public ResponseEntity update(@RequestBody EmpleadoDTO t, @PathVariable int id) {
 		return ResponseEntity.status(201).body(empleadoService.update(t, id));
 	}
 
 	@Override
-	@DeleteMapping("/{id}")
-	public ResponseEntity deleteEntity(@PathVariable int id) {
+	@DeleteMapping("/borrar/{id}")
+	public ResponseEntity delete(@PathVariable int id) {
 		boolean det = empleadoService.delete(id);
 
 		if (det) {
-			return ResponseEntity.status(204).body("'Message' : 'Successful Delete'");
+			return ResponseEntity.status(204).body("'Message' : 'Borrado con éxito!'");
 		} else {
-			return ResponseEntity.status(400).body("'Message' . 'Unsuccessful delete'");
+			return ResponseEntity.status(400).body("'Message' . 'Ocurrió un problema al eliminar'");
 		}
 	}
 

@@ -1,4 +1,4 @@
-package ml.work.main.entities;
+/*package ml.work.main.entities;
 
 import java.io.Serializable;
 
@@ -6,8 +6,10 @@ import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@Embeddable
+//@Embeddable
 public class GenerarId implements Serializable{
+
+	private static final long serialVersionUID = -4132202774433781011L;
 
 	@NotNull
 	public Long numero_id;
@@ -56,4 +58,5 @@ public class GenerarId implements Serializable{
 		 result += tipo_id.hashCode();
 		 return result;
 	 }
-}
+
+}*/

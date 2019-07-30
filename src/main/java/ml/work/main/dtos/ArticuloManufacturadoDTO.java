@@ -5,15 +5,12 @@ import java.io.Serializable;
 import ml.work.main.entities.CategoriaProducto;
 
 public class ArticuloManufacturadoDTO implements Serializable{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
+	//private static final long serialVersionUID = 7402958955532521118L;
 
 	private int id_artManuf;
 	
-	private String nombre_articuloM;
+	private String nombreManufacturado;
 	
 	private int minutosPrep;
 	
@@ -28,17 +25,16 @@ public class ArticuloManufacturadoDTO implements Serializable{
 	private float precioM;
 	
 	
-	
 
 	public ArticuloManufacturadoDTO() {
 	}
 
 	
-	public ArticuloManufacturadoDTO(int id_artManuf, String nombre_articuloM, int minutosPrep, 
+	public ArticuloManufacturadoDTO(int id_artManuf, String nombreManufacturado, int minutosPrep, 
 //			List<Precios> precioDePlato, List<DetalleReceta> detalleRecetas, List<DetalleFactura> dFactura, 
 			boolean enMenu, CategoriaProducto categoriaManuf, String foto, String detalle, float precio) {
 		this.id_artManuf = id_artManuf;
-		this.nombre_articuloM = nombre_articuloM;
+		this.nombreManufacturado = nombreManufacturado;
 		this.minutosPrep = minutosPrep;
 		this.enMenu = enMenu;
 		this.categoriaManuf = categoriaManuf;
@@ -60,11 +56,11 @@ public class ArticuloManufacturadoDTO implements Serializable{
 	}
 
 	public String getNombre_articuloM() {
-		return nombre_articuloM;
+		return nombreManufacturado;
 	}
 
-	public void setNombre_articuloM(String nombre_articuloM) {
-		this.nombre_articuloM = nombre_articuloM;
+	public void setNombre_articuloM(String nombreManufacturado) {
+		this.nombreManufacturado = nombreManufacturado;
 	}
 
 	public int getMinutosPrep() {

@@ -2,6 +2,8 @@ package ml.work.main.service;
 
 import java.util.List;
 
+
+
 public interface ObjectService <T> {
 	
 	public List<T> getAll();

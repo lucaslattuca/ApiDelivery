@@ -2,6 +2,7 @@ package ml.work.main.controllers;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,14 +15,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ml.work.main.dtos.ArticuloDTO;
 import ml.work.main.dtos.ClienteDTO;
 import ml.work.main.dtos.DistritoDTO;
+import ml.work.main.dtos.MensajeDTO;
 import ml.work.main.service.DistritoService;
 
 @Controller
 @RestController
 @CrossOrigin(origins = "*") 
-@RequestMapping(path = "api/v1/Distritos")
+@RequestMapping(path = "/api/v1/Distritos")
 public class DistritoController implements ObjectController<DistritoDTO>{
 
 	private DistritoService distritoService;
@@ -32,20 +35,24 @@ public class DistritoController implements ObjectController<DistritoDTO>{
 
 	@Override
 	@CrossOrigin("*")
-	@GetMapping(path ="/")
-	public List<DistritoDTO> getAll() {
-		
-		return ResponseEntity.status(200).body(distritoService.getAll()).getBody();
+	@GetMapping(path ="/lista")
+	public ResponseEntity<List<DistritoDTO>> getAll(){
+        List<DistritoDTO> lista = distritoService.getAll();
+        return new ResponseEntity<List<DistritoDTO>>(lista, HttpStatus.OK);
+    }
+	
+	@Override
+	@CrossOrigin("*")	
+	@GetMapping("/detalle/{id}")
+	public ResponseEntity<DistritoDTO> getOne(@PathVariable int id){
+	     DistritoDTO uno = distritoService.getOne(id);
+	    return new ResponseEntity<>(uno, HttpStatus.OK);
 	}
+	
+	
 
 	@Override
-	@GetMapping("/{id}")
-	public DistritoDTO getOne(@PathVariable int id) {
-		return ResponseEntity.status(200).body(distritoService.getOne(id)).getBody();
-	}
-
-	@Override
-	@PostMapping("/")
+	@PostMapping("nuevo")
 	public ResponseEntity save(@RequestBody DistritoDTO t) {
 		DistritoDTO temp = distritoService.save(t);
 		
@@ -58,15 +65,15 @@ public class DistritoController implements ObjectController<DistritoDTO>{
 	}
 
 	@Override
-	@PutMapping("/{id}")
-	public ResponseEntity updateEntity(@RequestBody DistritoDTO t, @PathVariable int id) {
+	@PutMapping("/actualizar/{id}")
+	public ResponseEntity update(@RequestBody DistritoDTO t, @PathVariable int id) {
 		
 		return ResponseEntity.status(201).body(distritoService.update(t, id));
 	}
 
 	@Override
-	@DeleteMapping("/{id}")
-	public ResponseEntity deleteEntity(@PathVariable int id) {
+	@DeleteMapping("/borrar/{id}")
+	public ResponseEntity delete(@PathVariable int id) {
 		boolean det = distritoService.delete(id);
 		if (det) {
 			return ResponseEntity.status(204).body("");

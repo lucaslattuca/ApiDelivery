@@ -1,6 +1,8 @@
 package ml.work.main.entities;
 
-import java.sql.Date;
+
+
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,7 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -39,9 +40,8 @@ public class DetalleReceta {
 	@JoinColumn(name = "id_articulo")
 	private Articulo articulo;
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "id_artManuf")
-	@JsonBackReference
 	private ArticuloManufacturado articuloManuf;
 	
 	
@@ -57,8 +57,6 @@ public class DetalleReceta {
 		this.articuloManuf = articuloManuf;
 		this.fechaAnulado = fechaAnulado;
 	}
-	
-	
 
 	public int getId_receta() {
 		return id_receta;

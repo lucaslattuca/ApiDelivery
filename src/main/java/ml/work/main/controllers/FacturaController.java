@@ -1,8 +1,10 @@
 package ml.work.main.controllers;
 
-import java.util.ArrayList; 
+import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,7 +22,7 @@ import ml.work.main.service.FacturaService;
 @Controller
 @RestController
 @CrossOrigin(origins = "*") 
-@RequestMapping(path = "api/v1/facturas")
+@RequestMapping(path = "/api/v1/facturas")
 public class FacturaController implements ObjectController<FacturaDTO> {
 
 	private FacturaService facturaService;
@@ -31,19 +33,24 @@ public class FacturaController implements ObjectController<FacturaDTO> {
 
 	@Override
 	@CrossOrigin("*")
-	@GetMapping(path = "/")
-	public ArrayList<FacturaDTO> getAll() {
-		return ResponseEntity.status(200).body(facturaService.getAll()).getBody();
+	//@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping(path = "/lista")
+	public ResponseEntity<List<FacturaDTO>> getAll(){
+        List<FacturaDTO> factura = facturaService.getAll();
+        return new ResponseEntity<List<FacturaDTO>>(factura, HttpStatus.OK);
+    }
+
+	@Override
+	//@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping("/detalle/{id}")
+	public ResponseEntity<FacturaDTO> getOne(@PathVariable int id){
+		FacturaDTO factura = facturaService.getOne(id);
+	    return new ResponseEntity<FacturaDTO>(factura, HttpStatus.OK);
 	}
 
 	@Override
-	@GetMapping(path = "/{id}")
-	public FacturaDTO getOne(@PathVariable int id) {
-		return ResponseEntity.status(200).body(facturaService.getOne(id)).getBody();
-	}
-
-	@Override
-	@PostMapping("/")
+	//@PreAuthorize("hasRole('ADMIN')")
+	@PostMapping("nuevo")
 	public ResponseEntity save(@RequestBody FacturaDTO body) {
 		FacturaDTO temp = facturaService.save(body);
 
@@ -55,15 +62,17 @@ public class FacturaController implements ObjectController<FacturaDTO> {
 	}
 	
 	@Override
-	@PutMapping("/{id}")
-	public ResponseEntity updateEntity(@RequestBody FacturaDTO t, @PathVariable int id) {
+	//@PreAuthorize("hasRole('ADMIN')")
+	@PutMapping("/actualizar/{id}")
+	public ResponseEntity update(@RequestBody FacturaDTO t, @PathVariable int id) {
 		return ResponseEntity.status(201).body(facturaService.update(t, id));
 	}
 	
 	
 	@Override
-	@DeleteMapping("/{id}")
-	public ResponseEntity deleteEntity(@PathVariable int id) {
+	//@PreAuthorize("hasRole('ADMIN')")
+	@DeleteMapping("/borrar/{id}")
+	public ResponseEntity delete(@PathVariable int id) {
 		boolean det = facturaService.delete(id);
 
 		if (det) {

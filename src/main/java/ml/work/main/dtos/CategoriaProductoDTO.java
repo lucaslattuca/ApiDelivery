@@ -3,11 +3,9 @@ package ml.work.main.dtos;
 import java.io.Serializable;
 
 public class CategoriaProductoDTO implements Serializable{
+
+	//private static final long serialVersionUID = 2521798651193148956L;
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private int id_categoria;
 	private String nombre_categoria;
 	private boolean esPlato;

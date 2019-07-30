@@ -110,4 +110,30 @@ public class DetalleRecetaService implements ObjectService<DetalleRecetaDTO>{
 		return true;
 	}
 
+	public ArrayList<DetalleRecetaDTO> getPorIdManufacturado(int id) {
+		ArrayList<DetalleRecetaDTO> result = new ArrayList<>();
+
+		for (DetalleReceta detalle : detalleRecetaRepository.findAll()) {
+			
+			if(detalle.getArticuloManuf()!=null) {
+				int numero = detalle.getArticuloManuf().getId_artManuf();
+				
+				if(numero == id) {
+					
+					DetalleRecetaDTO temp = new DetalleRecetaDTO();
+
+					temp.setId_receta(detalle.getId_receta());
+					temp.setArticulo(detalle.getArticulo());
+					temp.setArticuloManuf(detalle.getArticuloManuf());
+					temp.setCantidad(detalle.getCantidad());
+					temp.setFechaAnulado(detalle.getFechaAnulado());
+
+					result.add(temp);
+				}			
+			}
+			
+		}
+		return result;
+	}
+	
 }

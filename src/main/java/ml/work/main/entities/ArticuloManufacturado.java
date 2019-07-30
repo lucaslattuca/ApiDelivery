@@ -2,27 +2,23 @@ package ml.work.main.entities;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+//import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+//import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "apirest_art_manufacturado")
-@JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="@id")
+//@JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="@id")
 public class ArticuloManufacturado {
 	
 	@Id
@@ -51,9 +47,9 @@ public class ArticuloManufacturado {
 	private float precioM;
 	
 	
-	@OneToMany(mappedBy = "articuloManuf", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	/*@OneToMany(mappedBy = "articuloManuf", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JsonManagedReference
-	private Set<DetalleReceta> detalleRecetas;	
+	private Set<DetalleReceta> detalleRecetas;*/
 		
 	
 	@ManyToOne
@@ -65,14 +61,14 @@ public class ArticuloManufacturado {
 	public ArticuloManufacturado() {
 	}
 
-	public ArticuloManufacturado(int id_artManuf, String nombre_articuloM, int minutosPrep,
+	public ArticuloManufacturado(int id_artManuf, String nombreManufacturado, int minutosPrep,
 			Set<DetalleReceta> detalleRecetas, 
 //			Set<Precios> precioDePlato,
 			boolean enMenu, CategoriaProducto categoriaManuf, String foto, String detalle, float precio)  {
 		this.id_artManuf = id_artManuf;
-		this.nombreManufacturado = nombre_articuloM;
+		this.nombreManufacturado = nombreManufacturado;
 		this.minutosPrep = minutosPrep;
-		this.detalleRecetas = detalleRecetas;
+		//this.detalleRecetas = detalleRecetas;
 //		this.dFactura = dFactura;
 		this.enMenu = enMenu;
 		this.categoriaManuf = categoriaManuf;
@@ -94,8 +90,8 @@ public class ArticuloManufacturado {
 		return nombreManufacturado;
 	}
 
-	public void setNombre_articuloM(String nombre_articuloM) {
-		this.nombreManufacturado = nombre_articuloM;
+	public void setNombre_articuloM(String nombreManufacturado) {
+		this.nombreManufacturado = nombreManufacturado;
 	}
 
 	public int getMinutosPrep() {
@@ -146,13 +142,13 @@ public class ArticuloManufacturado {
 		this.detalle = detalle;
 	}
 
-	public Set<DetalleReceta> getDetalleRecetas() {
+	/*public Set<DetalleReceta> getDetalleRecetas() {
 		return detalleRecetas;
 	}
 
 	public void setDetalleRecetas(Set<DetalleReceta> detalleRecetas) {
 		this.detalleRecetas = detalleRecetas;
-	}
+	}*/
 
 	public float getPrecioM() {
 		return precioM;
