@@ -1,9 +1,5 @@
 package ml.work.main.security;
 
-import ml.work.main.security.JWT.JwtEntryPoint;
-import ml.work.main.security.JWT.JwtTokenFilter;
-import ml.work.main.service.UserDetailsServiceImpl;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +11,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import ml.work.main.security.JWT.JwtEntryPoint;
+import ml.work.main.security.JWT.JwtTokenFilter;
+import ml.work.main.service.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -60,6 +60,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
             .authorizeRequests()
+                .antMatchers("/api/v1/**").permitAll()
                 .antMatchers("/api/v1/auth/**").permitAll()
                 //.antMatchers("/api/v1/articulos/lista/**","/api/articulos/detalle/**").permitAll()
                 //.antMatchers("/api/v1/manufacturados/lista/**","/api/v1/manufacturados/detalle/**").permitAll()

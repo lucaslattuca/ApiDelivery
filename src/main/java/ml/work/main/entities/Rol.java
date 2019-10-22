@@ -23,7 +23,7 @@ public class Rol {
 	@Enumerated(EnumType.STRING)
 	@NaturalId
 	private RolNombre rolNombre;
-	
+
 	public Rol() {
 		
 	}
